@@ -1,0 +1,48 @@
+h2 {
+	margin: 2% 0 !important;
+	float: left;
+	display: inline-block;
+}
+
+input {
+	max-width: 500px;
+}
+
+.btn-new-article {
+	background-color: lightgray;
+	color: darkslategray;
+	max-width: 100%;
+	padding: 10px 50px;
+	margin: 20px auto 10px auto;
+	display: inline-block;
+}
+
+.btn-new-article:hover {
+	text-decoration: none;
+	background-color: lightslategray;
+	color: lightgray;
+}
+
+.card {
+	max-width: 800px;
+	margin: 20px auto;
+}
+
+.card-title {
+	display: inline-block;
+}
+
+.btn-danger, .btn-info {
+	color: white !important;
+	cursor: pointer;
+	float: right;
+	margin-right: 10px;
+}
+
+.btn-back {
+	font-size: 1.5rem !important;
+}
+
+.page-link {
+	cursor: pointer;
+}

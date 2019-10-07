@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Database;
+use PDO;
 
 
 class Article {
@@ -44,9 +45,17 @@ class Article {
         return $stmt->fetchAll();
     }
 
+    public function getArticlesWithPagination($from) {
+        $stmt = $this->connection->prepare("SELECT * FROM $this->table LIMIT ? , 10");
+        $stmt->bindValue(1, $from, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function getArticleById($id) {
-        $stmt = $this->connection->prepare("SELECT * FROM $this->table WHERE id = :id");
-        $stmt->bindParam(':id', $id);
+        $this->connection->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
+        $stmt = $this->connection->prepare("SELECT * FROM $this->table WHERE id = ?");
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch();
     }
@@ -58,11 +67,11 @@ class Article {
         return $stmt->execute();
     }
 
-    public function editArticle($id, $title, $content) {
+    public function updateArticle($id, $title, $content) {
         $stmt = $this->connection->prepare("UPDATE $this->table  SET title = :title, content = :content WHERE id = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':title', $this->title);
-        $stmt->bindParam(':content', $this->content);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':content', $content);
         return $stmt->execute();
     }
 
